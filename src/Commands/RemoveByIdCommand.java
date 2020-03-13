@@ -1,5 +1,7 @@
 package Commands;
 
+import Exceptions.NoSuchDragonException;
+
 public class RemoveByIdCommand extends Command {
     public RemoveByIdCommand(CommandReceiver receiver) {
         super(receiver);
@@ -10,13 +12,23 @@ public class RemoveByIdCommand extends Command {
         return 1;
     }
 
+
     @Override
-    public void execute(String[] cmdArgs) {
-        receiver.getCollection().removeById(Integer.parseInt(cmdArgs[0]));
+    public void execute(String[] cmdArgs) throws NoSuchDragonException {
+        try{
+            long id = Long.parseLong(cmdArgs[0]);
+            if(receiver.getCollection().removeById(id)){
+                System.out.println("Dragon with id " + cmdArgs[0] + " removed");
+            }else{
+                throw new NoSuchDragonException(id);
+            }
+        }catch (NumberFormatException e){
+            System.out.println("id - это число большее нуля");
+        }
     }
 
     @Override
     public String getDescription() {
-        return "считать и исполнить скрипт из указанного файла. В скрипте содержатся команды в таком же виде, в котором их вводит пользователь в интерактивном режиме.";
+        return "удалить элемент из коллекции по его id";
     }
 }

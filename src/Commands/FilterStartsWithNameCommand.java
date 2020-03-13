@@ -1,5 +1,10 @@
 package Commands;
 
+import Dragon.Dragon;
+
+import java.util.HashSet;
+import java.util.Iterator;
+
 public class FilterStartsWithNameCommand extends Command {
     public FilterStartsWithNameCommand(CommandReceiver receiver) {
         super(receiver);
@@ -13,8 +18,18 @@ public class FilterStartsWithNameCommand extends Command {
     @Override
     public void execute(String[] cmdArgs) {
         try{
-            System.out.println(receiver.getCollection().filterStartsWithName(cmdArgs[0]));
-        }catch (Exception e){
+            HashSet<Dragon> res = receiver.getCollection()
+                    .filterStartsWithName(cmdArgs[0]);
+            if(res.size()!=0){
+                System.out.println("Элементов в коллекции имена которых начинаются" +
+                        "со строки " + cmdArgs[0] + ": " + res.size());
+                for (Dragon dragon : res) {
+                    System.out.println(dragon.getAllInfoColumn());
+                }
+            }else{
+                System.out.println("Драконов с именами начинающихся с " + cmdArgs[0] + " нет.");
+            }
+        }catch (Exception e){ //по-моему их тут быть не может
             System.out.println("капут");
         }
     }

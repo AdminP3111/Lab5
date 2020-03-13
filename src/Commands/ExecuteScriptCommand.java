@@ -16,6 +16,12 @@ public class ExecuteScriptCommand extends Command {
         return 1;
     }
 
+
+    /**
+     * скрипт выполняется путём вызова метода выполнения команды из Main.
+     * это немного нарушает концепцию шаблона Команда, но это крайне удобно
+     * @param cmdArgs имя скрипта
+     */
     @Override
     public void execute(String[] cmdArgs) {
         try(BufferedReader reader = new BufferedReader(new FileReader(cmdArgs[0]))){

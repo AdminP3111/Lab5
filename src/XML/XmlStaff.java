@@ -14,7 +14,14 @@ import java.util.List;
 
 public class XmlStaff {
     // мне кажется парсеры должны писаться не так...
-    //TODO "null"
+
+    /**
+     * метод получения HashSet<Dragon> из xml файла
+     * использую библиотеку JDOM2
+     * @param xmlFile файл который надо парсить
+     * @return сет драконов
+     * @throws FileNotFoundException если файл не нашелся
+     */
     public static HashSet<Dragon> fromXmlToDragonList(File xmlFile) throws FileNotFoundException {
         SAXBuilder builder = new SAXBuilder();
         BufferedReader reader = new BufferedReader(new FileReader(xmlFile));
@@ -63,6 +70,13 @@ public class XmlStaff {
         return res;
     }
 
+    /**
+     * метод для записи в xml файл коллекции
+     * использую библиотеку JDOM2
+     * @param collection
+     * @param resFileName имя файла в который записать коллекцию
+     * @throws FileNotFoundException
+     */
     public static void writeCollectionToFile(HashSet<Dragon> collection, String resFileName) throws FileNotFoundException {
         try{
             Document doc = new Document();
@@ -91,7 +105,6 @@ public class XmlStaff {
                 currDragon.addContent(new Element("type").addContent(String.valueOf(d.getType())));
 
                 //killer
-                //name birthday haircolor nationality location
                 Person k = d.getKiller();
                 Element birthday = new Element("birthday");
                 birthday.addContent(new Element("year").addContent(String.valueOf(k.getBirthday().getYear())))
@@ -108,6 +121,7 @@ public class XmlStaff {
                         .addContent(new Element("hairColor").addContent(k.getHairColor().toString()))
                         .addContent(new Element("nationality").addContent(k.getNationality().toString()))
                         .addContent(location);
+
                 currDragon.addContent(killer);
                 root.addContent(currDragon);
             }
@@ -115,9 +129,8 @@ public class XmlStaff {
             Format fmt = Format.getPrettyFormat();
             XMLOutputter outputter = new XMLOutputter(fmt);
             outputter.output(doc, new PrintWriter(new File(resFileName)));
-        } catch (IOException e) {
-            e.printStackTrace();
+        }catch (IOException e) {
+            System.out.println("капут в xmlStaff");
         }
-
     }
 }

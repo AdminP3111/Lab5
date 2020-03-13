@@ -25,6 +25,10 @@ public class AddElementCommand extends Command {
         System.out.println("Дракон добавлен успешно!");
     }
 
+    /**
+     *
+     * @return описание команды
+     */
     @Override
     public String getDescription() {
         return "добавить новый элемент в коллекцию";

@@ -1,5 +1,11 @@
 package Commands;
 
+import Exceptions.NoSuchDragonException;
+
+/**
+ * шаблон команда
+ */
 public interface Executable {
-    void execute(String[] cmdArgs);
+    // Exception - костыль, можно изменить
+    void execute(String[] cmdArgs) throws NoSuchDragonException;
 }

@@ -1,7 +1,6 @@
 package Commands;
 
 import Dragon.*;
-
 import java.util.Scanner;
 
 public class UpdateIdCommand extends Command{
@@ -14,6 +13,12 @@ public class UpdateIdCommand extends Command{
         return 1;
     }
 
+
+    /**
+     * апдейтит дракона по указанному id. реализован так: сначала удаляет элемент,
+     * потом создает новый и присваивает ему id прошлого.
+     * @param cmdArgs id дракона для обновления
+     */
     @Override
     public void execute(String[] cmdArgs) {
         while(true){

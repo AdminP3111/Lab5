@@ -31,10 +31,16 @@ public class MyDragonsCollection {
         creationDate = new Date();
         dragons = new HashSet<>();
     }
+
+    /**
+     * конструктор, который использую в чтении из файла
+     * @param dragons
+     */
     public MyDragonsCollection(HashSet<Dragon> dragons){
         creationDate = new Date();
         this.dragons = dragons;
     }
+
     public void show(){
         if(dragons.size() == 0) System.out.println("Коллекция пуста. Добавьте дракончиков.");
         for (Dragon d : dragons){
@@ -61,7 +67,10 @@ public class MyDragonsCollection {
         }
     }
 
-    //  удалить из коллекции все элементы, меньшие, чем заданный
+    /**
+     * удалить из коллекции все элементы, меньшие, чем заданный
+     * @param dragon
+     */
     public void removeLower(Dragon dragon){
         Iterator<Dragon> iterator = dragons.iterator();
         while(iterator.hasNext()){
@@ -72,6 +81,12 @@ public class MyDragonsCollection {
         }
     }
 
+    /**
+     * фильтрует коллекцию, оставляет только тех, чьи имена начинаются с name
+     * @param name является началом имени драконов которых нужно получить
+     * @return
+     */
+
     public HashSet<Dragon> filterStartsWithName(String name){
         HashSet<Dragon> dr = new HashSet<>();
         for (Dragon d : dragons){
@@ -81,6 +96,10 @@ public class MyDragonsCollection {
         }
         return dr;
     }
+
+    /**
+     * простой метод для вывода коллекции в обратном порядке
+     */
     public void printDescending(){
         ArrayList<Dragon> dr = new ArrayList<>(dragons);
         Collections.reverse(dr);
@@ -93,7 +112,7 @@ public class MyDragonsCollection {
         if(dragon != null){
             this.dragons.remove(dragon);
             return true;
-            }
+        }
         return false;
     }
 
@@ -106,8 +125,9 @@ public class MyDragonsCollection {
     }
 
     public Dragon findById(long id) {
-        while (dragons.iterator().hasNext()) {
-            Dragon dragon = dragons.iterator().next();
+        Iterator<Dragon> it = dragons.iterator();
+        while (it.hasNext()) {
+            Dragon dragon = it.next();
             if (dragon.getId() == id) {
                 return dragon;
             }
@@ -121,9 +141,7 @@ public class MyDragonsCollection {
         while(it.hasNext()){
             a.add(it.next().getWingspan());
         }
-        for(float t : a){
-            System.out.println(a + " ");
-        }
+        System.out.println(a);
     }
 
     public void printCollectionInfo(){

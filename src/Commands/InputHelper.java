@@ -7,20 +7,32 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.Scanner;
 
+/**
+ * класс для ввода полей элемента.
+ */
 public class InputHelper {
     private Scanner sc;
     public InputHelper(Scanner sc){
         this.sc = sc;
     }
 
-    // возможно этот метод уменьшает код
-    // ПРИВАТНЫЙ ДЛЯ ВОЗМОЖНО ПУСТОЙ ЛИНИИ
+    /**
+     * возможно этот метод уменьшает код
+     * ПРИВАТНЫЙ ДЛЯ ВОЗМОЖНО ПУСТОЙ ЛИНИИ
+     * @param cheVvodit че вводить?
+     * @return введённая пользователем строка (может быть пустой)
+     */
     private String scanLine(String cheVvodit){
         System.out.println("введите " + cheVvodit);
         return sc.nextLine().trim();
     }
-    // ПРИВАТНЫЙ ДЛЯ НЕПУСТОЙ ЛИНИИ
-    private  String scanNotEmptyLine(String cheVvodit){
+
+    /**
+     * ПРИВАТНЫЙ МЕТОД ДЛЯ НЕПУСТОЙ СТРОКИ
+     * @param cheVvodit че вводить?
+     * @return введенная пользователем строка (не пустая)
+     */
+    private String scanNotEmptyLine(String cheVvodit){
         String res = scanLine(cheVvodit);
         while(res.isBlank()) {
             System.out.println("Строка не должна быть пустой или состоять только из пробелов.");
@@ -29,7 +41,13 @@ public class InputHelper {
         }
         return res.trim();
     }
-    // Все Стринговые аргументы в лабе не могут быть пустыми. Имена то есть.
+
+    /**
+     * метод для ввода аргументов-строк. Все Стринговые аргументы в лабе не могут быть пустыми.
+     * Имена то есть.
+     * @param cheVvodit че вводить?
+     * @return введенное пользователем, скорее всего, имя
+     */
     public String scanStringArg(String cheVvodit){
         String str = scanLine(cheVvodit);
         while(str==null || str.equals("")){
@@ -39,6 +57,14 @@ public class InputHelper {
         return str;
     }
 
+    /**
+     * метод для сканирования любого Enum. проверяет, является ли введенная
+     * пользователем строка элементом enum'а, который передается во втором аргументе.
+     * @param cheVvodit че вводить?
+     * @param canBeNull может ли быть Enum пустым?
+     * @param enumType тип перечисления
+     * @return
+     */
     public Enum<?> scanEnum(String cheVvodit, boolean canBeNull, Class<? extends Enum> enumType){
         while(true) {
             String str = scanLine(cheVvodit);
@@ -53,6 +79,13 @@ public class InputHelper {
             }
         }
     }
+
+    /**
+     * метод для сканирования аргумента который должен быть integer
+     * @param cheVvodit че вводить?
+     * @param positiveOnly должно ли число быть только положительным?
+     * @return число
+     */
     public int scanInteger(String cheVvodit, boolean positiveOnly){
         while(true) {
             String input = scanNotEmptyLine(cheVvodit);
@@ -69,6 +102,12 @@ public class InputHelper {
             }
         }
     }
+    /**
+     * метод для сканирования аргумента который должен быть float
+     * @param cheVvodit че вводить?
+     * @param positiveOnly должно ли число быть только положительным?
+     * @return число
+     */
     public float scanFloat(String cheVvodit, boolean positiveOnly){
         while(true) {
             String input = scanNotEmptyLine(cheVvodit);
@@ -85,6 +124,12 @@ public class InputHelper {
             }
         }
     }
+    /**
+     * метод для сканирования аргумента который должен быть long
+     * @param cheVvodit че вводить?
+     * @param positiveOnly должно ли число быть только положительным?
+     * @return число
+     */
     public long scanLong(String cheVvodit, boolean positiveOnly){
         while(true) {
             String input = scanNotEmptyLine(cheVvodit);
@@ -101,6 +146,8 @@ public class InputHelper {
             }
         }
     }
+
+
     public LocalDateTime scanLocalDateTimeNoNull(String cheVvodit){
         System.out.println(cheVvodit);
         int god = scanInteger("год", true);
@@ -131,6 +178,12 @@ public class InputHelper {
         return new Location(x, y, z, locName);
     }
 
+    /**
+     * сканирует всего дракона. проверяет правильность ввода полей. учитывает, какие поля
+     * могут быть null, а какие поля-числа больше нуля
+     * @param cheVvdoit че вводить?
+     * @return дракон
+     */
     public Dragon scanDragon(String cheVvdoit){
         String name = scanStringArg("имя дракона");
         System.out.println("Координаты.");
@@ -145,6 +198,13 @@ public class InputHelper {
         return new Dragon(name, coordinates, age,
                 wingspan, type, character, killer);
     }
+
+    /**
+     * сканирует всего Person. проверяет правильность ввода полей. учитывает, какие поля
+     * могут быть null, а какие поля-числа больше нуля
+     * @param cheVvodit че вводить?
+     * @return человiк
+     */
     public Person scanPerson(String cheVvodit){
         System.out.println("введите " + cheVvodit);
         String name = scanLine("имя");

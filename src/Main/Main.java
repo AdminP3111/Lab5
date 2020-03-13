@@ -3,7 +3,7 @@ package Main;
 import Commands.*;
 import Dragon.MyDragonsCollection;
 import Exceptions.NoSuchCommandException;
-import Exceptions.NotValidTypeOfArgumentException;
+import Exceptions.NoSuchDragonException;
 import Exceptions.WrongArgumentsNumberException;
 import XML.XmlStaff;
 
@@ -13,7 +13,6 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Main {
-    private static CommandReceiver mainReceiver;
     private static CommandsInvoker invoker;
 
     public static void main(String[] args) {
@@ -45,10 +44,9 @@ public class Main {
         //вызывающий объект и несколько объектов команд принадлежат объекту клиента
         // Клиент решает, какие команды выполнить и когда.
         // Чтобы выполнить команду он передает объект команды объекту invoker.
-        //TODO ВВОД КОТОРЫЙ ПРОВЕРЯЕТ отсутсвие прав доступа к файлу
 
         invoker = CommandsInvoker.getInstance();
-        mainReceiver = new CommandReceiver(invoker.getMapOfRegisteredCommands(),
+        CommandReceiver mainReceiver = new CommandReceiver(invoker.getMapOfRegisteredCommands(),
                 drakoniNelegalnie);
         invoker.register("info", new InfoCommand(mainReceiver));
         invoker.register("help", new HelpCommand(mainReceiver));
@@ -93,10 +91,10 @@ public class Main {
             System.out.println("help покажет доступные команды. Осторожно, не опечатайтесь!");
         }catch (NoSuchElementException e){
             System.out.println("^D в моей программе не работает");
-        }catch (StackOverflowError e){
+        }catch (StackOverflowError e) {
             System.out.println("стэк сломан. поздравляю.");
-        }catch (NotValidTypeOfArgumentException e){
-            System.out.println("Не тот тип аргумента");
+        }catch (NoSuchDragonException e){
+            System.out.println("возможно, стоит изучить доступных драконов по команде show?");
         }
     }
 }

@@ -5,11 +5,8 @@ import java.util.Date;
 public class Dragon implements Comparable<Dragon>{
 
     private long id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
-    
     private String name; //Поле не может быть null, Строка не может быть пустой
-
     private Coordinates coordinates; //Поле не может быть null
-    //TODO проверить
     private java.util.Date creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
     private int age; //Значение поля должно быть больше 0
     private float wingspan; //Значение поля должно быть больше 0
@@ -22,13 +19,13 @@ public class Dragon implements Comparable<Dragon>{
 
     /**
      * Конструктор со всеми не автогенерируемыми полями
-     * @param name
-     * @param coordinates
-     * @param age
-     * @param wingspan
-     * @param type
-     * @param character
-     * @param killer
+     * @param name - имя дракона
+     * @param coordinates - координаты
+     * @param age - возраст дракона. value = age * wingspan
+     * @param wingspan - размах крыла
+     * @param type - тип дракона
+     * @param character - характер дракона
+     * @param killer - убийца дракона
      */
     public Dragon(String name, Coordinates coordinates, int age, float wingspan,
                   DragonType type, DragonCharacter character, Person killer){
@@ -129,6 +126,12 @@ public class Dragon implements Comparable<Dragon>{
         //this.id = (idInc-=-1);
     }
 
+    //мне не пришло в голову переопределить toString()
+
+    /**
+     *
+     * @return колонку с информацией о драконе
+     */
     public String getAllInfoColumn(){
         //если будет время можно рефлексией наверно
         StringBuilder builder = new StringBuilder();
@@ -145,11 +148,22 @@ public class Dragon implements Comparable<Dragon>{
         return builder.toString();
         //быстрее ли через StringBuilder?
     }
+
     // небезопасно
+
+    /**
+     * костыль для команды updateById
+     * @param id id дракона
+     */
     public void changeId(long id){
         this.id = id;
     }
 
+    /**
+     * драконы сравниваются по value = age * wingspan
+     * @param dragon сравниваемый дракон
+     * @return
+     */
 
     @Override
     public int compareTo(Dragon dragon) {

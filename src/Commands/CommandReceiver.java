@@ -8,6 +8,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
+/**
+ * шаблон Команда
+ * Получатель ничего не знает о командах. ему дают задание и коллекцию - он выполняет.
+ */
+
 public class CommandReceiver {
     // РЕСИВЕР ЭТО ПОВАР
 
@@ -29,6 +34,7 @@ public class CommandReceiver {
         this.registeredCommands = registeredCommands;
         this.collection = collection;
     }
+
 
     private boolean userWantsToExit = false;
 

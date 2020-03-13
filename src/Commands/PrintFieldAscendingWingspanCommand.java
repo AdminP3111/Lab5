@@ -14,4 +14,9 @@ public class PrintFieldAscendingWingspanCommand extends Command {
     public void execute(String[] cmdArgs) {
         receiver.getCollection().printFieldAscendingWingspan();
     }
+
+    @Override
+    public String getDescription() {
+        return "вывести значения поля wingspan в порядке возрастания";
+    }
 }

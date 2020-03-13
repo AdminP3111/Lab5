@@ -12,6 +12,10 @@ public class AddIfMaxCommand extends Command{
         return 0;
     }
 
+    /**
+     *
+     * @param cmdArgs ничего, с новых строк - поля дракона
+     */
     @Override
     public void execute(String[] cmdArgs) {
         Scanner sc = new Scanner(System.in);
