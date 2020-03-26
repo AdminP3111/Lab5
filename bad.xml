@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<collection>
+    <dragon id="0">
+        <name>Михаил Дьяконов</name>
+        <сoordinates>
+            <x>100</x>
+            <y>200</y>
+        </сoordinates>
+        <creationDate>?</creationDate>
+        <age>10</age>
+        <wingspan>100</wingspan>
+        <type>WATER</type>
+        <character>GOOD</character>
+        <killer>

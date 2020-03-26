@@ -32,6 +32,9 @@ public class InputHelper {
         System.out.println("введите " + cheVvodit);
         return sc.nextLine().trim();
     }
+    private String scanLine(){
+        return sc.nextLine().trim();
+    }
 
     /**
      * ПРИВАТНЫЙ МЕТОД ДЛЯ НЕПУСТОЙ СТРОКИ
@@ -68,14 +71,18 @@ public class InputHelper {
      * метод для сканирования любого Enum. проверяет, является ли введенная
      * пользователем строка элементом enum'а, который передается во втором аргументе.
      *
-     * @param cheVvodit че вводить?
      * @param canBeNull может ли быть Enum пустым?
      * @param enumType  тип перечисления
      * @return enum
      */
-    public Enum<?> scanEnum(String cheVvodit, boolean canBeNull, Class<? extends Enum> enumType){
+    public Enum<?> scanEnum(boolean canBeNull, Class<? extends Enum> enumType){
+        /*
+        не могу вывести доступные значение Enum'а прям тут, потому что...
+        Обратите внимание, что ни метод valueOf(), ни метод values() не определен в классе java.lang.Enum.
+        Вместо этого они автоматически добавляются компилятором на этапе компиляции enum-класса.
+         */
         while(true) {
-            String str = scanLine(cheVvodit);
+            String str = scanLine();
             try {
                 if (str.equals("") && canBeNull) return null;
                 else if (str.equals("")){
@@ -83,7 +90,7 @@ public class InputHelper {
                 }
                 return Enum.valueOf(enumType, str);
             } catch (IllegalArgumentException | NullPointerException e) {
-                System.out.println("введите нормально плиз");
+                System.out.println("Пожалуйста, введите одно из значений enum'а.");
             }
         }
     }
@@ -107,7 +114,7 @@ public class InputHelper {
                     return res;
                 }
             }catch (Exception e){
-                System.out.println("введите нормально плиз");
+                System.out.println("введите целое число");
             }
         }
     }
@@ -131,7 +138,7 @@ public class InputHelper {
                     return res;
                 }
             }catch (Exception e){
-                System.out.println("введите нормально плиз");
+                System.out.println("введите число");
             }
         }
     }
@@ -155,7 +162,7 @@ public class InputHelper {
                     return res;
                 }
             }catch (Exception e){
-                System.out.println("введите нормально плиз");
+                System.out.println("введите число");
             }
         }
     }
@@ -182,7 +189,7 @@ public class InputHelper {
                 int day = scanInteger("день", true);
                 return LocalDateTime.of(god, mon, day, 0, 0);
             }catch(IllegalArgumentException|NullPointerException e){
-                System.out.println("введите нормально плиз");
+                System.out.println("введите название месяца правильно");
             }catch (DateTimeException e){
                 System.out.println("Число не то для месяца. еще раз");
             }
@@ -218,9 +225,19 @@ public class InputHelper {
         int y = scanInteger("Y", false);
         Coordinates coordinates = new Coordinates(x, y);
         int age = scanInteger("возраст дракона", true);
-        float wingspan = scanFloat("размах крыльев (да, размах крыльев, да это число)", true);
-        DragonType type = (DragonType) scanEnum("тип дракона", true, DragonType.class);
-        DragonCharacter character = (DragonCharacter) scanEnum("характер дракона", false, DragonCharacter.class);
+        float wingspan = scanFloat("размах крыльев (это число)", true);
+        System.out.println("Введите тип дракона. Доступные типы: ");
+        for(DragonType t : DragonType.values()){
+            System.out.print(t + " ");
+        }
+        System.out.println();
+        DragonType type = (DragonType) scanEnum( true, DragonType.class);
+        System.out.println("Введите характер дракона. Доступные типы: ");
+        for(DragonCharacter t : DragonCharacter.values()){
+            System.out.print(t + " ");
+        }
+        System.out.println();
+        DragonCharacter character = (DragonCharacter) scanEnum(false, DragonCharacter.class);
         Person killer = scanPerson("убийца дракона");
         return new Dragon(name, coordinates, age,
                 wingspan, type, character, killer);
@@ -238,8 +255,18 @@ public class InputHelper {
         String name = scanLine("имя");
         if(name.equals("")) return null; // Person может быть пустым
         LocalDateTime birthday = scanLocalDateTimeNoNull("дата рождения");
-        Color hairColor = (Color) scanEnum("цвет волос", true, Color.class);
-        Country country = (Country) scanEnum("национальность", true, Country.class);
+        System.out.println("Введите цвет волос. Доступные типы: ");
+        for(Color t: Color.values()){
+            System.out.print(t + " ");
+        }
+        System.out.println();
+        Color hairColor = (Color) scanEnum( true, Color.class);
+        System.out.println("Введите национальность. Доступные типы: ");
+        for(Country t : Country.values()){
+            System.out.print(t + " ");
+        }
+        System.out.println();
+        Country country = (Country) scanEnum( true, Country.class);
         Location loc = scanLocation("локацию");
         return new Person(name, birthday, hairColor, country, loc);
     }

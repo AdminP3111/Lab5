@@ -8,7 +8,6 @@ import Exceptions.WrongArgumentsNumberException;
 import XML.XmlStaff;
 import org.jdom2.JDOMException;
 import org.jdom2.input.JDOMParseException;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.NoSuchElementException;
@@ -123,7 +122,7 @@ public class Main {
         }catch (JDOMException e){
             System.out.println("Не удалось распарсить файл " + defaultFileName);
         } catch (FileNotFoundException e){
-            System.out.println("Не удалось найти файл " + defaultFileName);
+            System.out.println("Не удалось найти файл " + defaultFileName + ". Проверьте, существует ли файл и ваши на него права.");
         }
         return new MyDragonsCollection();
     }
