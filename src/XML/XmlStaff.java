@@ -11,6 +11,8 @@ import org.jdom2.output.XMLOutputter;
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
@@ -35,16 +37,35 @@ public class XmlStaff {
             List<Element> list = rootNode.getChildren("dragon");
             for (Element currDragon : list) {
                 String name = currDragon.getChildText("name");
+
                 Element coordinates = currDragon.getChild("сoordinates");
                 int x = Integer.parseInt(coordinates
                         .getChildText("x"));
                 int y = Integer.parseInt(coordinates
                         .getChildText("y"));
                 Coordinates coord = new Coordinates(x, y);
+
+                Date dated;
+                try{
+                    Element date = currDragon.getChild("creationDate");
+                    int dragonYear = Integer.parseInt(date.getChildText("year"));
+                    int dragonMonth = Integer.parseInt(date.getChildText("month"));
+                    int dragonDay = Integer.parseInt(date.getChildText("day"));
+                    Calendar cal = Calendar.getInstance();
+                    cal.set(dragonYear, dragonMonth, dragonDay);
+                    dated = cal.getTime();
+                }catch(NullPointerException | NumberFormatException e){
+                    dated = new Date();
+                }
+
                 int age = Integer.parseInt(currDragon.getChildText("age"));
+
                 float wingspan = Float.parseFloat(currDragon.getChildText("wingspan"));
+
                 DragonType type = DragonType.valueOf(currDragon.getChildText("type"));
+
                 DragonCharacter character = DragonCharacter.valueOf(currDragon.getChildText("character"));
+
                 Element killer = currDragon.getChild("killer");
                 String killerName = killer.getChildText("name");
                 Color killerColor = Color.valueOf(killer.getChildText("hairColor"));
@@ -61,10 +82,12 @@ public class XmlStaff {
                 int day = Integer.parseInt(birthday.getChildText("day"));
                 LocalDateTime birthday1 = LocalDateTime.of(year, month, day, 0, 0);
                 Person killa = new Person(killerName, birthday1, killerColor, killerNation, location);
-                res.add(new Dragon(name, coord, age, wingspan, type, character, killa));
+
+                res.add(new Dragon(name, coord, dated, age, wingspan, type, character, killa));
                 reader.close();
             }
         }catch (IOException e){
+            System.out.println("ошибка при парсинге файла");
         }
         return res;
     }

@@ -44,6 +44,19 @@ public class Dragon implements Comparable<Dragon>{
         generateId();
     }
 
+    public Dragon(String name, Coordinates coordinates, Date creationDate, int age, float wingspan,
+                  DragonType type, DragonCharacter character, Person killer){
+        this.name = name;
+        this.coordinates = coordinates;
+        this.creationDate = creationDate;
+        this.age = age;
+        this.wingspan = wingspan;
+        this.type = type;
+        this.character = character;
+        this.killer = killer;
+        generateId();
+    }
+
     /**
      * ИСПОЛЬЗУЮ ТОЛЬКО ДЛЯ КОМАНДЫ ОБНОВЛЕНИЯ ПО ID. КОСТЫЛЬ.
      *

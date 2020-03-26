@@ -6,7 +6,11 @@
             <x>100</x>
             <y>200</y>
         </сoordinates>
-        <creationDate>?</creationDate>
+        <creationDate>
+            <year>1960</year>
+            <month>12</month>
+            <day>20</day>
+        </creationDate>
         <age>10</age>
         <wingspan>100</wingspan>
         <type>WATER</type>
@@ -34,7 +38,11 @@
             <x>-1</x>
             <y>-1</y>
         </сoordinates>
-        <creationDate>?</creationDate>
+        <creationDate>
+            <year>1955</year>
+            <month>11</month>
+            <day>21</day>
+        </creationDate>
         <age>1</age>
         <wingspan>1</wingspan>
         <type>FIRE</type>

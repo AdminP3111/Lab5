@@ -28,7 +28,6 @@ public class Main {
                 if (!file.exists() || file.isDirectory()) {
                     System.out.println("xml файла по пути " + file.getAbsolutePath() + " не нашлось, использую input.xml");
                     file = new File("input.xml");
-                    System.out.println(file.getAbsolutePath());
                 }else{
                     System.out.println("Файл существует, попытаемся считать коллекцию");
                 }
@@ -43,7 +42,7 @@ public class Main {
             System.out.println("Данный файл не удалось распарсить, проверьте правильность ввода данных.");
             drakoniNelegalnie = tryToGetFromDefaultFile();
         } catch (JDOMException e) {
-            System.out.println("файл не получилось распарсовать");
+            System.out.println("файл не получилось распарсить");
             drakoniNelegalnie = tryToGetFromDefaultFile();
         }
         System.out.println("коллекция инициализована. show - показать коллекцию");
@@ -122,7 +121,8 @@ public class Main {
         }catch (JDOMException e){
             System.out.println("Не удалось распарсить файл " + defaultFileName);
         } catch (FileNotFoundException e){
-            System.out.println("Не удалось найти файл " + defaultFileName + ". Проверьте, существует ли файл и ваши на него права.");
+            System.out.println("Не удалось найти файл " + defaultFileName + ". Проверьте, существует ли файл по" +
+                    " пути " + (new File(defaultFileName).getAbsolutePath()) + "и ваши на него права.");
         }
         return new MyDragonsCollection();
     }
